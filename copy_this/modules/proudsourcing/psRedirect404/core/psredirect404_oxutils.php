@@ -8,7 +8,7 @@
  * @copyright (c) Proud Sourcing GmbH | 2013
  * @link www.proudcommerce.com
  * @package psRedirect404
- * @version 1.0.0
+ * @version 1.1.0
 **/
 class psRedirect404_oxutils extends psRedirect404_oxutils_parent
 {
@@ -21,7 +21,14 @@ class psRedirect404_oxutils extends psRedirect404_oxutils_parent
      */
     public function handlePageNotFoundError($sUrl = '')
     {
+        // module active?
+        if(!oxRegistry::getConfig()->getConfigParam("psRedirect404_status"))
+        {
+            return parent::handlePageNotFoundError($sUrl = '');
+        }
+
         $iShortest = -1;
+        $iHeaderType = 302;
         $sSearchString = $this->_clearUrl($sUrl);
 
         // psRedirect404
@@ -33,14 +40,21 @@ class psRedirect404_oxutils extends psRedirect404_oxutils_parent
             {
                 $sUrl = $this->_clearUrl($value[0]);
                 $sLevRes = levenshtein($sSearchString, $sUrl);
-                #echo $sLevRes." - ".$sUrl." (".$value[0].")<br>";
+                echo $sLevRes." - ".$sUrl." (".$value[0].")<br>";
                 if ($sLevRes <= $iShortest || $iShortest < 0) {
                     $sClosest = $value[0];
                     $iShortest = $sLevRes;
+                    if($sLevRes <= 10 && oxRegistry::getConfig()->getConfigParam("psRedirect404_redirecttype") == "auto")
+                    {
+                        $iHeaderType = 301;
+                    }
                 }
             }
-
-            oxRegistry::getUtils()->redirect( oxRegistry::getConfig()->getShopUrl() . $sClosest, false, 302 );
+            if(!oxRegistry::getConfig()->getConfigParam("psRedirect404_redirecttype") == "301")
+            {
+                $iHeaderType = 301;
+            }
+            oxRegistry::getUtils()->redirect( oxRegistry::getConfig()->getShopUrl() . $sClosest, false, $iHeaderType );
         } catch (Exception $e) {
         }
         $this->showMessageAndExit( "Found" );
@@ -55,6 +69,11 @@ class psRedirect404_oxutils extends psRedirect404_oxutils_parent
      */
     protected function _clearUrl( $sUrl )
     {
+        // compare short urls?
+        if(oxRegistry::getConfig()->getConfigParam("psRedirect404_comparewholeurl"))
+        {
+            return $sUrl;
+        }
         $aUrl = explode("/", $sUrl);
         $aUrl = array_filter($aUrl);
         return end($aUrl);
