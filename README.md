@@ -7,7 +7,7 @@ Free Module for OXID eShop.
 Features
 
 	Searches for closest shop-url using levenshtein algorithm and redirects this url.
-	Redirect with header 301 only, 302 only oder best matches and redirect automatically 301 oder 302.
+	Redirect with header (A) 301 only, (B) 302 only or best matches and (C) redirect automatically 301 or 302.
 
 
 Installation
