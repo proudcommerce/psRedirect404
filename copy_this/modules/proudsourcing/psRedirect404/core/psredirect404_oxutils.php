@@ -40,7 +40,7 @@ class psRedirect404_oxutils extends psRedirect404_oxutils_parent
             {
                 $sUrl = $this->_clearUrl($value[0]);
                 $sLevRes = levenshtein($sSearchString, $sUrl);
-                echo $sLevRes." - ".$sUrl." (".$value[0].")<br>";
+                #echo $sLevRes." - ".$sUrl." (".$value[0].")<br>";
                 if ($sLevRes <= $iShortest || $iShortest < 0) {
                     $sClosest = $value[0];
                     $iShortest = $sLevRes;
