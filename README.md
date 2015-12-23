@@ -2,7 +2,7 @@ psRedirect404
 =========
 
 Redirect on 404 eror pages with levenshtein algorithm.
-Free Module for OXID eShop 4.7/4.8.
+Free Module for OXID eShop 4.7/4.8/4.9.
 
 Features
 
@@ -34,5 +34,5 @@ License
 
 Copyright
 
-	Proud Sourcing GmbH 2013
+	Proud Sourcing GmbH 2015
 	www.proudcommerce.com
