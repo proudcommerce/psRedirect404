@@ -9,13 +9,17 @@ Features
 	Searches for closest shop-url using levenshtein algorithm and redirects this url.
 	Redirect with header (A) 301 only, (B) 302 only or best matches and (C) redirect automatically 301 or 302.
 
-
 Installation
 
 	1. copy content from copy_this folder into your shop root
 	2. activate module psRedirect404 in shop admin
 
+Tip: Use the [OXID module connector](https://github.com/OXIDprojects/OXID-Module-Connector) to install this module.
 
+Changelog
+
+	2013-11-30	1.0.0	module release
+	
 License
 
     This program is free software: you can redistribute it and/or modify
