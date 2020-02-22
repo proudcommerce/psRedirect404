@@ -1,0 +1,38 @@
+{
+  "name": "proudcommerce/psredirect404",
+  "description": "Redirect on 404 error pages with levenshtein algorithm.",
+  "type": "oxideshop-module",
+  "license": [
+    "proprietary"
+  ],
+  "authors": [
+    {
+      "name": "ProudCommerce",
+      "homepage": "https://www.proudcommerce.com/",
+      "email": "welcome@proudcommerce.com",
+      "role": "Developer"
+    },
+    {
+      "name": "tobimat",
+      "homepage": "https://www.tobimat.eu/",
+      "email": "225997+TumTum@users.noreply.github.com",
+      "role": "Developer"
+    }
+  ],
+  "support": {
+    "email": "support@proudcommerce.com"
+  },
+  "require": {
+    "php": ">= 7.0"
+  },
+  "autoload": {
+    "psr-4": {
+      "ProudCommerce\\Redirect404\\": "../../../source/modules/pc/redirect404"
+    }
+  },
+  "extra": {
+    "oxideshop": {
+      "target-directory": "pc/redirect404"
+    }
+  }
+}
