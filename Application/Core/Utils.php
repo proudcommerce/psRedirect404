@@ -8,9 +8,21 @@
  * @copyright (c) Proud Sourcing GmbH | 2013
  * @link www.proudcommerce.com
  * @package psRedirect404
- * @version 1.1.0
 **/
-class psRedirect404_oxutils extends psRedirect404_oxutils_parent
+
+namespace ProudCommerce\Redirect404\Application\Core;
+
+use Doctrine\DBAL\Query\QueryBuilder;
+use OxidEsales\Eshop\Core\Registry;
+use OxidEsales\EshopCommunity\Internal\Application\ContainerFactory;
+use OxidEsales\EshopCommunity\Internal\Common\Database\QueryBuilderFactoryInterface;
+
+/**
+ * Class psRedirect404_oxutils
+ *
+ * @package ProudCommerce\Redirect404\Application\Core
+ */
+class Utils extends Utils_parent
 {
     /**
      * handler for 404 (page not found) error
@@ -22,7 +34,7 @@ class psRedirect404_oxutils extends psRedirect404_oxutils_parent
     public function handlePageNotFoundError($sUrl = '')
     {
         // module active?
-        if(!oxRegistry::getConfig()->getConfigParam("psRedirect404_status"))
+        if(!Registry::getConfig()->getConfigParam("psRedirect404_status"))
         {
             return parent::handlePageNotFoundError($sUrl = '');
         }
@@ -44,33 +56,32 @@ class psRedirect404_oxutils extends psRedirect404_oxutils_parent
                 if ($sLevRes <= $iShortest || $iShortest < 0) {
                     $sClosest = $value[0];
                     $iShortest = $sLevRes;
-                    if($sLevRes <= 10 && oxRegistry::getConfig()->getConfigParam("psRedirect404_redirecttype") == "auto")
+                    if($sLevRes <= 10 && Registry::getConfig()->getConfigParam("psRedirect404_redirecttype") == "auto")
                     {
                         $iHeaderType = 301;
                     }
                 }
             }
-            if(!oxRegistry::getConfig()->getConfigParam("psRedirect404_redirecttype") == "301")
+            if(!Registry::getConfig()->getConfigParam("psRedirect404_redirecttype") == "301")
             {
                 $iHeaderType = 301;
             }
-            oxRegistry::getUtils()->redirect( oxRegistry::getConfig()->getShopUrl() . $sClosest, false, $iHeaderType );
-        } catch (Exception $e) {
+            Registry::getUtils()->redirect( Registry::getConfig()->getShopUrl() . $sClosest, false, $iHeaderType );
+        } catch (\Exception $e) {
         }
-        $this->showMessageAndExit( "Found" );
+        Registry::getUtils()->showMessageAndExit( "Found" );
     }
 
     /**
      * Cleans given seo url
      *
-     * @param   arr     seo url
-     *
-     * @return  string
+     * @param string $sUrl seo url
+     * @return string
      */
     protected function _clearUrl( $sUrl )
     {
         // compare short urls?
-        if(oxRegistry::getConfig()->getConfigParam("psRedirect404_comparewholeurl"))
+        if(Registry::getConfig()->getConfigParam("psRedirect404_comparewholeurl"))
         {
             return $sUrl;
         }
@@ -82,11 +93,24 @@ class psRedirect404_oxutils extends psRedirect404_oxutils_parent
     /**
      * Gets all seo urls from database
      *
-     * @return  arr
+     * @return mixed[]
      */
     protected function _getSeoUrls()
     {
-        $sSql = "SELECT oxseourl FROM oxseo WHERE oxshopid = '".oxRegistry::getConfig()->getShopId()."' AND oxlang = ".oxRegistry::getLang()->getTplLanguage()." AND oxexpired = 0 ORDER BY oxtimestamp";
-        return oxDb::getDb()->getAll($sSql);
+        /** @var QueryBuilder $qb */
+        $qb = ContainerFactory::getInstance()->getContainer()->get(QueryBuilderFactoryInterface::class)->create();
+
+        $qb->select('oxseourl')
+            ->from('oxseo')
+            ->where("oxshopid = :oxshopid")
+            ->andWhere('oxlang = :oxlang')
+            ->andWhere('oxexpired = 0')
+            ->setParameter('oxshopid', Registry::getConfig()->getShopId())
+            ->setParameter('oxlang', Registry::getLang()->getTplLanguage())
+            ->orderBy('oxtimestamp')
+        ;
+
+        $all = $qb->execute()->fetchAll(\PDO::FETCH_NUM);
+        return $all;
     }
 }

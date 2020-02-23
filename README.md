@@ -1,26 +1,28 @@
 psRedirect404
-=========
+=============
 
 Redirect on 404 eror pages with levenshtein algorithm.
-Free module for OXID eshop 4.7, 4.8, 4.9 and 4.10.
+Free module for OXID eshop 6.x.
 
 Features
+--------
 
 	Searches for closest shop-url using levenshtein algorithm and redirects this url.
 	Redirect with header (A) 301 only, (B) 302 only or best matches and (C) redirect automatically 301 or 302.
 
 Installation
+------------
 
-	1. copy content from copy_this folder into your shop root
-	2. activate module psRedirect404 in shop admin
+    composer require proudcommerce/psredirect404
 
-Tip: Use the [OXID module connector](https://github.com/OXIDprojects/OXID-Module-Connector) to install this module.
 
 Changelog
+---------
 
 	2013-11-30	1.0.0	module release
-	
+
 License
+-------
 
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -37,6 +39,7 @@ License
     
 
 Copyright
+---------
 
-	Proud Sourcing GmbH 2016
+	Proud Sourcing GmbH 2020
 	www.proudcommerce.com / www.proudsourcing.de

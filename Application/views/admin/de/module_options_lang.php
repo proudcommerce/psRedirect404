@@ -11,7 +11,8 @@
  * @version 1.1.0
  **/
 $sLangName = 'Deutsch';
-$aLang     = array(
+
+$aLang     = [
     'charset'                                   => 'UTF-8',
     'SHOP_MODULE_GROUP_psRedirect404Main'       => 'Stamm',
     'SHOP_MODULE_psRedirect404_status'          => 'Modul aktiv?',
@@ -20,4 +21,4 @@ $aLang     = array(
     'SHOP_MODULE_psRedirect404_redirecttype_301'    => '301 (alle URLs)',
     'SHOP_MODULE_psRedirect404_redirecttype_302'    => '302 (alle URLs)',
     'SHOP_MODULE_psRedirect404_redirecttype_auto'    => 'auto (best Matches 301, andere URLs 302)',
-);
+];
