@@ -61,17 +61,21 @@ class SeoLevenstein
         $iShortest = -1;
         $httpStatus = 302;
         $sSearchString = $this->_clearUrl($sUrl);
+        $targetSeo = '';
 
         // psRedirect404
         // checks based on levenshtein algorithm closest url from
         // oxid seo urls (oxseo) and redirect with header 302 to this page
 
-        foreach ($this->_getSeoUrls() as $value) {
-            $sUrl = $this->_clearUrl($value[0]);
+        $seoUrls = $this->_getSeoUrls();
+        foreach ($seoUrls as $row) {
+            $sUrl = $this->_clearUrl($row['oxseourl']);
             $sLevRes = levenshtein($sSearchString, $sUrl);
 
             if ($sLevRes <= $iShortest || $iShortest < 0) {
-                $sClosest = $value[0];
+                $sClosest = $row['oxseourl'];
+                $targetSeo = $row['oxobjectid'];
+
                 $iShortest = $sLevRes;
                 if ($sLevRes <= 10 && Registry::getConfig()->getConfigParam("psRedirect404_redirecttype") == "auto") {
                     $httpStatus = 301;
@@ -84,7 +88,8 @@ class SeoLevenstein
         }
 
         $newUrl = Registry::getConfig()->getShopUrl() . $sClosest;
-        call_user_func($this->onRedirect, $newUrl, $httpStatus);
+
+        call_user_func($this->onRedirect, $newUrl, $httpStatus, $targetSeo);
     }
 
     /**
@@ -114,7 +119,7 @@ class SeoLevenstein
         /** @var QueryBuilder $qb */
         $qb = ContainerFactory::getInstance()->getContainer()->get(QueryBuilderFactoryInterface::class)->create();
 
-        $qb->select('oxseourl')
+        $qb->select('oxseourl, oxobjectid')
             ->from('oxseo')
             ->where("oxshopid = :oxshopid")
             ->andWhere('oxlang = :oxlang')
@@ -123,7 +128,7 @@ class SeoLevenstein
             ->setParameter('oxlang', Registry::getLang()->getTplLanguage())
             ->orderBy('oxtimestamp');
 
-        $all = $qb->execute()->fetchAll(\PDO::FETCH_NUM);
+        $all = $qb->execute()->fetchAll(\PDO::FETCH_ASSOC);
 
         return $all;
     }

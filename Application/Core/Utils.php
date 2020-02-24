@@ -13,6 +13,7 @@
 namespace ProudCommerce\Redirect404\Application\Core;
 
 use OxidEsales\Eshop\Core\Registry;
+use ProudCommerce\Redirect404\Application\Model\RedirectSeoCache;
 
 /**
  * Class psRedirect404_oxutils
@@ -38,8 +39,9 @@ class Utils extends Utils_parent
                 ->isDeactive(function () use ($sUrl) {
                     parent::handlePageNotFoundError($sUrl);
                 })
-                ->onRedirect(function ($url, $httpStatus) {
-                    Registry::getUtils()->redirect($url, false, $httpStatus);
+                ->onRedirect(function ($redirectUrl, $httpStatus, $targetSeo) use ($sUrl) {
+                    (new RedirectSeoCache())->createCache($sUrl, $targetSeo);
+                    Registry::getUtils()->redirect($redirectUrl, false, $httpStatus);
                 })
                 ->searchUrl($sUrl);
 

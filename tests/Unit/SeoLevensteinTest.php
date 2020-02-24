@@ -75,9 +75,10 @@ class SeoLevensteinTest extends TestCase
         //Act
         $actual = [];
         $seoLevenstein
-            ->onRedirect(function ($url, $httpStatus) use (&$actual){
+            ->onRedirect(function ($url, $httpStatus, $targetSeo) use (&$actual){
                 $actual['url'] = $url;
                 $actual['httpStatus'] = $httpStatus;
+                $actual['targetSeo'] = $targetSeo;
             })
             ->searchUrl($url);
 
@@ -115,9 +116,10 @@ class SeoLevensteinTest extends TestCase
         //Act
         $actual = [];
         $seoLevenstein
-            ->onRedirect(function ($url, $httpStatus) use (&$actual){
+            ->onRedirect(function ($url, $httpStatus, $targetSeo) use (&$actual){
                 $actual['url'] = $url;
                 $actual['httpStatus'] = $httpStatus;
+                $actual['targetSeo'] = $targetSeo;
             })
             ->searchUrl($url);
 
@@ -148,6 +150,34 @@ class SeoLevensteinTest extends TestCase
                 ],
             ],
         ];
+    }
+
+    /**
+     * @param $expect
+     * @param $oxseotable
+     * @param $url
+     */
+    public function testHasATargetConfig()
+    {
+        //Arange
+        $url = 'PHPUnit/path/target/seo/object/';
+        $this->setUrlsIntoOxseo([$url]);
+        $seoLevenstein = new SeoLevenstein();
+
+        $expect = substr('PHPUnit_'.md5('OXOBJECTID'. $url), 0,32);
+
+        //Act
+        $actual = [];
+        $seoLevenstein
+            ->onRedirect(function ($url, $httpStatus, $targetSeo) use (&$actual){
+                $actual['url'] = $url;
+                $actual['httpStatus'] = $httpStatus;
+                $actual['targetSeo'] = $targetSeo;
+            })
+            ->searchUrl($url);
+
+        //Assert
+        $this->assertEquals($expect, $actual['targetSeo']);
     }
 
     protected function tearDown()

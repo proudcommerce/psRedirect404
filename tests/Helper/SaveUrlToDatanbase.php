@@ -23,7 +23,7 @@ trait SaveUrlToDatanbase
                     'OXEXPIRED' => ':oxexpired',
                 ])
                 ->setParameters([
-                    'oxobjectid' => substr('PHPUnit_'.md5('OXOBJECTID'. $url), 0,32),
+                    'oxobjectid' => $this->getPHPUnitKey($url),
                     'oxident' => md5('OXIDENT'. $url),
                     'oxshopid' => Registry::getConfig()->getShopId(),
                     'oxseourl' => $url,
@@ -32,6 +32,15 @@ trait SaveUrlToDatanbase
                 ])
                 ->execute();
         });
+    }
+
+    /**
+     * @param $url
+     * @return false|string
+     */
+    public function getPHPUnitKey($url)
+    {
+        return substr('PHPUnit_' . md5('OXOBJECTID' . $url), 0, 32);
     }
 
     protected function removePHPUnitURls()
