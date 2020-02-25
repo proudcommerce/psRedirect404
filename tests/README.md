@@ -6,7 +6,8 @@ Run PHPUnit
     `composer remove oxid-esales/testing-library --no-scripts`
 3. Install PHPunit >v6 
     `composer require --dev phpunit/phpunit:^6 --no-scripts`
-4. Run `./source/modules/pc/redirect404/run_module_tests.sh`
+4. Activate Module
+5. Run `./source/modules/pc/redirect404/run_module_tests.sh`
 
 System requirements
 -------------------
