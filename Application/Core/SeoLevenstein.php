@@ -1,4 +1,14 @@
 <?php
+/**
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * @package psRedirect404
+ * @copyright ProudCommerce
+ * @link www.proudcommerce.com
+ **/
 
 namespace ProudCommerce\Redirect404\Application\Core;
 
@@ -17,6 +27,7 @@ class SeoLevenstein
     /**
      * @var callable
      */
+    private $onDeactive = null;
     private $onDeactive = null;
 
     /**
@@ -48,7 +59,7 @@ class SeoLevenstein
 
     /**
      * Main Function
-     * 
+     *
      * @param string $sUrl
      */
     public function searchUrl($sUrl)

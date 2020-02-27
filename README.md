@@ -19,6 +19,8 @@ Installation
 Changelog
 ---------
 
+    2020-02-27  2.0.0   release for oxid 6.x
+    2014-01-02  1.1.0   update for oxid 4.6
 	2013-11-30	1.0.0	module release
 
 License
@@ -42,4 +44,4 @@ Copyright
 ---------
 
 	Proud Sourcing GmbH 2020
-	www.proudcommerce.com / www.proudsourcing.de
+	www.proudcommerce.com

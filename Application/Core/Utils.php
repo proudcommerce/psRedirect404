@@ -4,11 +4,11 @@
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
- * @copyright (c) Proud Sourcing GmbH | 2013
- * @link www.proudcommerce.com
+ *
  * @package psRedirect404
-**/
+ * @copyright ProudCommerce
+ * @link www.proudcommerce.com
+ **/
 
 namespace ProudCommerce\Redirect404\Application\Core;
 
@@ -46,7 +46,7 @@ class Utils extends Utils_parent
                 ->searchUrl($sUrl);
 
         } catch (\Exception $e) {
-            getLogger()->warning('Exception redirect404: '. $e->getMessage(), ['module' => 'redirect404']);
+            getLogger()->warning('Exception redirect404: ' . $e->getMessage(), ['module' => 'redirect404']);
             parent::handlePageNotFoundError($sUrl);
         }
     }

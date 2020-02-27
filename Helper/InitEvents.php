@@ -1,13 +1,17 @@
 <?php
 /**
- * Created by oxid-module-skeleton.
- * Module: redirect404
- * Autor: Auto generate by oxrun <oxid-module-skeleton@oxid.projects.internal>
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
  *
- * @see https://github.com/OXIDprojects/oxrun
- */
+ * @package psRedirect404
+ * @copyright ProudCommerce
+ * @link www.proudcommerce.com
+ **/
 
 namespace ProudCommerce\Redirect404\Helper;
+
 use tm\oxid\SchemaExpander\DesireExpander;
 
 /**
@@ -20,7 +24,7 @@ class InitEvents
         $desire = new DesireExpander();
 
         $desire->table('oxseohistory')
-                ->addField('PC_CREATOR', 'char(11) DEFAULT "oxideshop" COMMENT "Module pcRedirect404 or oxidshop created this entry."');
+            ->addField('PC_CREATOR', 'char(11) DEFAULT "oxideshop" COMMENT "Module psRedirect404 or oxidshop created this entry."');
 
         $desire->execute();
     }

@@ -1,6 +1,7 @@
 {
-  "name": "proudcommerce/psredirect404",
+  "name": "proudcommerce/redirect404",
   "description": "Redirect on 404 error pages with levenshtein algorithm.",
+  "version": "2.0.0",
   "type": "oxideshop-module",
   "license": [
     "proprietary"

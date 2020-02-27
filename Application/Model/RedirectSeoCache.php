@@ -1,4 +1,14 @@
 <?php
+/**
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * @package psRedirect404
+ * @copyright ProudCommerce
+ * @link www.proudcommerce.com
+ **/
 
 namespace ProudCommerce\Redirect404\Application\Model;
 
@@ -15,7 +25,7 @@ use OxidEsales\EshopCommunity\Internal\Common\Database\QueryBuilderFactoryInterf
 class RedirectSeoCache
 {
 
-    const AUTHOR = 'redirect404';
+    const AUTHOR = 'psRedirect404';
 
     /**
      * @param string $url Levenstein match Url
@@ -23,32 +33,34 @@ class RedirectSeoCache
      */
     public function createCache($url, $seoObjectid)
     {
-        $key_ident = md5(strtolower($url));
+        if (Registry::getConfig()->getConfigParam("psRedirect404_usecache")) {
+            $key_ident = md5(strtolower($url));
 
-        /** @var QueryBuilder $qb */
-        $qb = ContainerFactory::getInstance()->getContainer()->get(QueryBuilderFactoryInterface::class)->create();
-        $qb
-            ->insert('oxseohistory')
-            ->values([
-                'OXOBJECTID' => ':oxobjectid',
-                'OXIDENT' => ':oxident',
-                'OXSHOPID' => ':oxshopid',
-                'OXLANG' => ':oxlang',
-                'OXINSERT' => 'now()',
-                'PC_CREATOR' => ':pc_creator',
-            ])
-            ->setParameters([
-                'oxobjectid' => $seoObjectid,
-                'oxident' => $key_ident,
-                'oxshopid' => Registry::getConfig()->getShopId(),
-                'oxlang' => Registry::getLang()->getBaseLanguage(),
-                'pc_creator' => self::AUTHOR,
-            ]);
+            /** @var QueryBuilder $qb */
+            $qb = ContainerFactory::getInstance()->getContainer()->get(QueryBuilderFactoryInterface::class)->create();
+            $qb
+                ->insert('oxseohistory')
+                ->values([
+                    'OXOBJECTID' => ':oxobjectid',
+                    'OXIDENT'    => ':oxident',
+                    'OXSHOPID'   => ':oxshopid',
+                    'OXLANG'     => ':oxlang',
+                    'OXINSERT'   => 'now()',
+                    'PC_CREATOR' => ':pc_creator',
+                ])
+                ->setParameters([
+                    'oxobjectid' => $seoObjectid,
+                    'oxident'    => $key_ident,
+                    'oxshopid'   => Registry::getConfig()->getShopId(),
+                    'oxlang'     => Registry::getLang()->getBaseLanguage(),
+                    'pc_creator' => self::AUTHOR,
+                ]);
 
-        try {
-            $qb->execute();
-        } catch (\Exception $e) {
-            getLogger()->debug('Exception save match url to oxseohistory: '. $e->getMessage(), ['module' => 'redirect404']);
+            try {
+                $qb->execute();
+            } catch (\Exception $e) {
+                getLogger()->debug('Exception save match url to oxseohistory: ' . $e->getMessage(), ['module' => 'psRedirect404']);
+            }
         }
     }
 }
