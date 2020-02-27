@@ -13,7 +13,7 @@ Features
 Installation
 ------------
 
-    composer require proudcommerce/psredirect404
+    composer require proudcommerce/redirect404
 
 
 Changelog
