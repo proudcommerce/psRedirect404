@@ -59,7 +59,7 @@ class RedirectSeoCache
             try {
                 $qb->execute();
             } catch (\Exception $e) {
-                getLogger()->debug('Exception save match url to oxseohistory: ' . $e->getMessage(), ['module' => 'psRedirect404']);
+                getLogger()->debug('Exception save match url to oxseohistory: ' . $e->getMessage(), ['module' => 'redirect404']);
             }
         }
     }

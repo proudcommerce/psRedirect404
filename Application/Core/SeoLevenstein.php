@@ -28,7 +28,6 @@ class SeoLevenstein
      * @var callable
      */
     private $onDeactive = null;
-    private $onDeactive = null;
 
     /**
      * @var callable

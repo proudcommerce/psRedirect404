@@ -38,7 +38,7 @@ $aModule = [
     ],
     'settings'                => [
         ['group' => 'psRedirect404Main', 'name' => 'psRedirect404_status', 'type' => 'bool', 'value' => true, 'position' => 1],
-        ['group' => 'psRedirect404Main', 'name' => 'psRedirect404_comparewholeurl', 'type' => 'bool', 'value' => true, 'position' => 2],
+        ['group' => 'psRedirect404Main', 'name' => 'psRedirect404_comparewholeurl', 'type' => 'bool', 'value' => false, 'position' => 2],
         ['group' => 'psRedirect404Main', 'name' => 'psRedirect404_redirecttype', 'type' => 'select', 'value' => 'auto', 'position' => 3, 'constraints' => '301|302|auto'],
         ['group' => 'psRedirect404Main', 'name' => 'psRedirect404_usecache', 'type' => 'bool', 'value' => true],
     ],
