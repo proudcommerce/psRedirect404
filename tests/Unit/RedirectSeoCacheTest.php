@@ -10,9 +10,11 @@ use PHPUnit\Framework\TestCase;
 
 class RedirectSeoCacheTest extends TestCase
 {
-    public function testTestToSaveLevensteinUrl()
+
+    public function testCacheMatchedUrl()
     {
-        //Arande
+        //Arrange
+        Registry::getConfig()->setConfigParam('psRedirect404_usecache', true);
         $redirectSeoCache = new RedirectSeoCache();
 
         $url = 'PHPUnit/Url/For/Seo/History/Cache/';
@@ -38,6 +40,31 @@ class RedirectSeoCacheTest extends TestCase
 
         //Assert
         $this->assertEquals($expect, $actual);
+    }
+
+    public function testCacheIsDisable()
+    {
+        //Arrange
+        Registry::getConfig()->setConfigParam('psRedirect404_usecache', false);
+        $redirectSeoCache = new RedirectSeoCache();
+
+        $url = 'PHPUnit/Url/For/Seo/History/Cache/';
+        $seoObjectid = 'PHPUnit_d35fcaad3aaba2a7f3d03b9e';
+
+        //Act
+        $redirectSeoCache->createCache($url, $seoObjectid);
+
+        $actual = ContainerFactory::getInstance()->getContainer()->get(QueryBuilderFactoryInterface::class)
+                    ->create()
+                        ->select('OXIDENT, OXOBJECTID, OXSHOPID, OXLANG, PC_CREATOR')
+                            ->from('oxseohistory')
+                            ->where('OXIDENT = :oxident')
+                        ->setParameter('oxident', md5(strtolower($url)))
+                        ->setMaxResults(1)
+                    ->execute()->fetchAll(\PDO::FETCH_ASSOC);
+
+        //Assert
+        $this->assertEquals([], $actual);
     }
 
     public function testCachtErrors()

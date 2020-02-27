@@ -27,7 +27,7 @@ class FindSeoLevensteinUrlTest extends TestCase
         Registry::getConfig()->setConfigParam('psRedirect404_status', true);
         Registry::getConfig()->setConfigParam('psRedirect404_redirecttype', 'auto');
         Registry::getConfig()->setConfigParam('psRedirect404_comparewholeurl', false);
-        Registry::getConfig()->setConfigParam('psRedirect404_usecache', true);
+        Registry::getConfig()->setConfigParam('psRedirect404_usecache', false);
 
         //Mock Utils
         Registry::set(Utils::class, new Helper\MockUtils());
@@ -54,6 +54,7 @@ class FindSeoLevensteinUrlTest extends TestCase
     public function testPlayTheWholeProcessWithCache()
     {
         //Arrange
+        Registry::getConfig()->setConfigParam('psRedirect404_usecache', true);
         $realUrl    = 'PHPUnit/this/is/a/real/path/cached.html';
         $similarUrl = 'PHPUnit/this/is/a/similar/path/cached.html';
         $unknownUrl = 'PHPUnit/this/is/a/unknown/new/url/';
