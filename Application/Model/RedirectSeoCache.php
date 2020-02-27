@@ -25,7 +25,7 @@ use OxidEsales\EshopCommunity\Internal\Common\Database\QueryBuilderFactoryInterf
 class RedirectSeoCache
 {
 
-    const AUTHOR = 'psRedirect404';
+    const AUTHOR = 'redirect404';
 
     /**
      * @param string $url Levenstein match Url
@@ -59,7 +59,7 @@ class RedirectSeoCache
             try {
                 $qb->execute();
             } catch (\Exception $e) {
-                getLogger()->debug('Exception save match url to oxseohistory: ' . $e->getMessage(), ['module' => 'redirect404']);
+                getLogger()->debug('Exception save match url to oxseohistory: ' . $e->getMessage(), ['module' => 'psRedirect404']);
             }
         }
     }

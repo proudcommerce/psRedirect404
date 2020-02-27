@@ -26,7 +26,8 @@ class FindSeoLevensteinUrlTest extends TestCase
 
         Registry::getConfig()->setConfigParam('psRedirect404_status', true);
         Registry::getConfig()->setConfigParam('psRedirect404_redirecttype', 'auto');
-        Registry::getConfig()->setConfigParam('psRedirect404_comparewholeurl', true);
+        Registry::getConfig()->setConfigParam('psRedirect404_comparewholeurl', false);
+        Registry::getConfig()->setConfigParam('psRedirect404_usecache', true);
 
         //Mock Utils
         Registry::set(Utils::class, new Helper\MockUtils());
