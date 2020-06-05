@@ -5,10 +5,10 @@
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  * 
- * @copyright (c) Proud Sourcing GmbH | 2013
+ * @copyright (c) Proud Sourcing GmbH | 2020
  * @link www.proudcommerce.com
  * @package psRedirect404
- * @version 1.1.0
+ * @version 1.1.1
 **/
 class psRedirect404_oxutils extends psRedirect404_oxutils_parent
 {
@@ -86,7 +86,7 @@ class psRedirect404_oxutils extends psRedirect404_oxutils_parent
      */
     protected function _getSeoUrls()
     {
-        $sSql = "SELECT oxseourl FROM oxseo WHERE oxshopid = '".oxRegistry::getConfig()->getShopId()."' AND oxlang = ".oxRegistry::getLang()->getTplLanguage()." AND oxexpired = 0 ORDER BY oxtimestamp";
+        $sSql = "SELECT oxseourl FROM oxseo WHERE oxshopid = '".oxRegistry::getConfig()->getShopId()."' AND oxlang = ".oxRegistry::getLang()->getTplLanguage()." AND oxexpired = 0 AND oxobjectid IN (SELECT oxid FROM oxarticles WHERE oxactive = 1) ORDER BY oxtimestamp";
         return oxDb::getDb()->getAll($sSql);
     }
 }

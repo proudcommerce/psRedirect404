@@ -15,7 +15,7 @@ $aModule = array(
         'en' => 'Redirect on 404 eror pages with levenshtein algorithm. Free Module for OXID eShop.',
     ),
     'thumbnail'    => 'logo_pc-os.jpg',
-    'version'      => '1.1.0',
+    'version'      => '1.1.1',
     'author'       => 'Proud Sourcing GmbH',
     'url'          => 'http://www.proudcommerce.com',
     'email'        => 'support@proudcommerce.com',

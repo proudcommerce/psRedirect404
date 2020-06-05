@@ -18,6 +18,8 @@ Tip: Use the [OXID module connector](https://github.com/OXIDprojects/OXID-Module
 
 Changelog
 
+	2020-06-05	1.1.1	add article status check
+	2013-12-02	1.1.0	some improvements?!
 	2013-11-30	1.0.0	module release
 	
 License
@@ -38,5 +40,4 @@ License
 
 Copyright
 
-	Proud Sourcing GmbH 2016
-	www.proudcommerce.com / www.proudsourcing.de
+	ProudCommerce 2020
