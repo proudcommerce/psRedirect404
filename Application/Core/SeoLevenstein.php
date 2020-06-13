@@ -134,6 +134,7 @@ class SeoLevenstein
             ->where("oxshopid = :oxshopid")
             ->andWhere('oxlang = :oxlang')
             ->andWhere('oxexpired = 0')
+            ->andWhere('oxobjectid IN (SELECT oxid FROM oxarticles WHERE oxactive = 1)')
             ->setParameter('oxshopid', Registry::getConfig()->getShopId())
             ->setParameter('oxlang', Registry::getLang()->getTplLanguage())
             ->orderBy('oxtimestamp');
