@@ -14,8 +14,8 @@ namespace ProudCommerce\Redirect404\Application\Core;
 
 use Doctrine\DBAL\Query\QueryBuilder;
 use OxidEsales\Eshop\Core\Registry;
-use OxidEsales\EshopCommunity\Internal\Application\ContainerFactory;
-use OxidEsales\EshopCommunity\Internal\Common\Database\QueryBuilderFactoryInterface;
+use OxidEsales\Eshop\Internal\Container\ContainerFactory;
+use OxidEsales\Eshop\Internal\Container\QueryBuilderFactoryInterface;
 
 /**
  * Class SeoLevenstein
