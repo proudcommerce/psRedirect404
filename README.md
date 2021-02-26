@@ -19,10 +19,11 @@ Installation
 Changelog
 ---------
 
-	2020-06-13	2.0.1	add article status check
-    2020-02-27  2.0.0   release for oxid 6.x
-    2014-01-02  1.1.0   update for oxid 4.6
-	2013-11-30	1.0.0	module release
+    2021-02-25    2.0.2   fix internal class use
+    2020-06-13    2.0.1   add article status check
+    2020-02-27    2.0.0   release for oxid 6.x
+    2014-01-02    1.1.0   update for oxid 4.6
+    2013-11-30    1.0.0   module release
 
 License
 -------
